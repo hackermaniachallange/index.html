@@ -3,540 +3,432 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HACKERMANIA | OVERVIEW</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="https://cdn.discordapp.com/attachments/1444689213638578288/1451645809438494860/hackemaniabanner.jpg?ex=6946ee03&is=69459c83&hm=3b1c6e471f6dd7641485133f3b52f6b9cc89565678caddef380ac4276de9034b&">
-
-    <!-- Primary Meta Tags -->
-    <meta name="title" content="HACKERMANIA | OVERVIEW">
-    <meta name="description" content="A decentralized collective of Digital Architects repurposing Discord’s architecture into a psychological gauntlet. The final filter for the technically gifted.">
-    <meta name="theme-color" content="#00ff41">
-
-    <!-- Open Graph / Facebook / Discord -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://discord.gg/6ZCg4JATT9">
-    <meta property="og:title" content="HACKERMANIA | OVERVIEW">
-    <meta property="og:description" content="A decentralized collective of Digital Architects. Bypassing normal entry protocols. Initialize uplink to proceed.">
-    <meta property="og:image" content="https://cdn.discordapp.com/attachments/1444689213638578288/1451645809438494860/hackemaniabanner.jpg?ex=6946ee03&is=69459c83&hm=3b1c6e471f6dd7641485133f3b52f6b9cc89565678caddef380ac4276de9034b&">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://discord.gg/6ZCg4JATT9">
-    <meta property="twitter:title" content="HACKERMANIA | OVERVIEW">
-    <meta property="twitter:description" content="A decentralized collective of Digital Architects repurposing Discord’s architecture into a psychological gauntlet.">
-    <meta property="twitter:image" content="https://cdn.discordapp.com/attachments/1444689213638578288/1451645809438494860/hackemaniabanner.jpg?ex=6946ee03&is=69459c83&hm=3b1c6e471f6dd7641485133f3b52f6b9cc89565678caddef380ac4276de9034b&">
+    <title>HACKERMANIA | SYSTEM_OVERVIEW</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --hacker-green: #00ff41;
-            --hacker-bg: #050505;
-            --discord-blurple: #5865F2;
+            --hacker-bg: #030303;
+            --terminal-bg: rgba(5, 5, 5, 0.8);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --warning-orange: #ffaa00;
         }
+        
+        * { scroll-behavior: smooth; }
+
         body {
             background-color: var(--hacker-bg);
             color: #e5e5e5;
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            user-select: text;
-        }
-        .code-font {
-            font-family: 'Fira+Code', monospace;
-        }
-        .green-glow {
-            color: var(--hacker-green);
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-        }
-        .bg-grid {
-            background-image: linear-gradient(rgba(0, 255, 65, 0.02) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0, 255, 65, 0.02) 1px, transparent 1px);
-            background-size: 30px 30px;
+            margin: 0;
+            overflow-x: hidden;
+            text-transform: uppercase;
         }
 
-        /* Invisible Text Styling */
-        .ghost-data {
-            color: var(--hacker-bg);
-            transition: color 0.1s;
-        }
-        .ghost-data::selection {
-            background: var(--hacker-green);
-            color: var(--hacker-bg);
-        }
+        .mono { font-family: 'Fira+Code', monospace; }
 
-        /* Grey Overlay for Ghost Data */
-        .ghost-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(128, 128, 128, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-family: 'Fira Code', monospace;
-            font-size: 1.2rem;
-            text-align: center;
-            z-index: 10;
-        }
-
-        /* Overlays */
-        .overlay-mask {
-            display: none;
+        /* Background Effects */
+        .scanline {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 9999;
-            backdrop-filter: blur(10px);
-            padding: 2rem;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 65, 0.01) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Area */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-        }
-
-        .terminal-box {
-            border: 1px solid var(--hacker-green);
-            background: #000;
-            max-width: 500px;
-            width: 100%;
-            padding: 2rem;
-            box-shadow: 0 0 50px rgba(0, 255, 65, 0.1);
-        }
-
-        /* Warning Overlay */
-        #security-alert {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10000;
-            background: #1a0000;
-            color: #ff4d4d;
-            padding: 2.5rem;
-            border: 1px solid #ff4d4d;
+            padding-top: 2rem;
             text-align: center;
-            font-family: 'Fira+Code', monospace;
-            box-shadow: 0 0 100px rgba(255, 0, 0, 0.2);
         }
 
-        .discord-tag {
-            background: rgba(88, 101, 242, 0.1);
-            color: var(--discord-blurple);
-            padding: 2px 6px;
+        .top-timer-container {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+            padding-bottom: 1rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* Dual Tone Header Effect */
+        .brand-main {
+            font-size: clamp(3.5rem, 12vw, 8.5rem);
+            font-weight: 900;
+            letter-spacing: -6px;
+            line-height: 0.8;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: center;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 65, 0.2));
+        }
+
+        .text-hacker {
+            color: #ffffff;
+        }
+
+        .text-mania {
+            color: var(--hacker-green);
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: #fff;
+            letter-spacing: 3px;
+            background: rgba(0, 255, 65, 0.1);
+            padding: 10px 25px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
             border-radius: 4px;
-            font-size: 0.8em;
-            font-weight: bold;
+            margin: 1.5rem 0;
         }
 
-        .staff-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+        /* Terminal Overlay */
+        .terminal-hero {
+            width: 100%;
+            max-width: 900px;
+            background: var(--terminal-bg);
+            border: 1px solid rgba(0, 255, 65, 0.1);
+            padding: 1rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(5px);
         }
-        .staff-card:hover {
+
+        #output {
+            height: 100px;
+            overflow: hidden;
+            font-size: 0.7rem;
+            line-height: 1.4;
+            display: flex;
+            flex-direction: column-reverse;
+            mask-image: linear-gradient(to top, black 70%, transparent 100%);
+            color: var(--hacker-green);
+            text-align: left;
+        }
+
+        /* Content Blocks */
+        .section-header {
+            margin-bottom: 4rem;
+            border-left: 4px solid var(--hacker-green);
+            padding-left: 1.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin: 0;
+        }
+
+        .section-header p {
+            font-size: 0.9rem;
+            opacity: 0.5;
+            letter-spacing: 4px;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #a1a1aa;
+            text-transform: none;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card:hover {
             border-color: var(--hacker-green);
             background: rgba(0, 255, 65, 0.02);
+            transform: translateY(-5px);
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 6px;
-        }
-        .online { background: #3ba55c; box-shadow: 0 0 8px #3ba55c; }
-
-        .header-banner {
-            width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
-            filter: brightness(0.8) contrast(1.1);
-        }
-
-        .section-title {
-            font-family: 'Fira+Code', monospace;
+        .card-label {
+            font-size: 0.7rem;
             color: var(--hacker-green);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card-title {
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #71717a;
+            text-transform: none;
+        }
+
+        /* Disclaimer Section Styling */
+        .disclaimer-box {
+            border: 1px solid rgba(255, 170, 0, 0.2);
+            background: rgba(255, 170, 0, 0.02);
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .disclaimer-title {
+            color: var(--warning-orange);
+            font-weight: 900;
             display: flex;
             align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
         }
-        .section-title::before {
-            content: "> ";
-            color: var(--discord-blurple);
-            font-weight: bold;
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--hacker-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--hacker-green);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.9); }
+        }
+
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            padding: 4rem;
+            font-size: 0.7rem;
+            opacity: 0.4;
+            letter-spacing: 4px;
+        }
+
+        .highlight-text {
+            color: var(--hacker-green);
+            font-weight: 700;
         }
     </style>
 </head>
-<body class="min-h-screen bg-grid overflow-x-hidden" oncontextmenu="return showWarning(event);">
+<body oncontextmenu="return false;">
 
-    <!-- Transfer Overlay -->
-    <div id="transfer-overlay" class="overlay-mask">
-        <div class="terminal-box code-font">
-            <div class="flex items-center space-x-2 mb-4">
-                <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                <span class="text-xs font-bold uppercase tracking-widest text-zinc-500">Gateway Intercept</span>
-            </div>
-            <p class="text-white text-lg font-bold mb-4">TRANSFERRING TO UPLINK...</p>
-            <div class="bg-zinc-900/50 p-4 mb-6 border border-white/5">
-                <p class="text-xs text-zinc-400 mb-1">Destination:</p>
-                <p class="text-discord-blurple text-sm break-all font-bold">https://discord.gg/6ZCg4JATT9</p>
-            </div>
-            <div class="space-y-4">
-                <div class="flex justify-between items-end">
-                    <span class="text-[10px] text-zinc-500 uppercase">Automatic Redirection In:</span>
-                    <span id="countdown" class="text-3xl font-black text-green-500">05s</span>
-                </div>
-                <div class="h-1 bg-zinc-800 w-full overflow-hidden">
-                    <div id="progress-bar" class="h-full bg-green-500 transition-all duration-1000 w-full"></div>
-                </div>
-                <div class="grid grid-cols-2 gap-4 pt-4">
-                    <button onclick="cancelTransfer()" class="py-2 border border-zinc-700 text-zinc-400 text-xs font-bold hover:bg-zinc-800 transition-all">ABORT</button>
-                    <a href="https://discord.gg/6ZCg4JATT9" class="py-2 bg-green-500 text-black text-xs font-bold text-center hover:bg-green-400 transition-all">MANUAL BYPASS</a>
-                </div>
-            </div>
+    <div class="scanline"></div>
+    <div class="bg-grid"></div>
+
+    <!-- Hero Area -->
+    <section class="hero-section">
+        <div class="top-timer-container mono">
+            <div class="text-[0.6rem] opacity-50 mb-2 tracking-[0.5em]">SYSTEM_INITIALIZATION_ETA</div>
+            <div id="countdown" class="text-4xl md:text-7xl font-bold tracking-tighter text-white">30:00:00:00:000</div>
         </div>
-    </div>
 
-    <!-- Security Warning Overlay -->
-    <div id="security-alert">
-        <p class="text-2xl font-black mb-2 tracking-tighter uppercase">Protocol Violation</p>
-        <p class="text-sm opacity-80 leading-relaxed mb-6">Inspect Element and Right-Click functionality is restricted to <br> <span class="discord-tag">@System Architect</span> roles only.</p>
-        <button onclick="closeWarning()" class="w-full py-2 bg-red-900/30 border border-red-500 text-red-500 font-bold hover:bg-red-500 hover:text-white transition-all">RE-ACKNOWLEDGE PROTOCOL</button>
-    </div>
-
-    <!-- Navigation Bar -->
-    <nav class="fixed top-0 w-full bg-black/80 backdrop-blur-md z-50 border-b border-white/5 px-6 py-3">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <span class="text-white font-black tracking-tighter">HACKER<span class="text-green-500">MANIA</span></span>
-                <span class="h-4 w-px bg-white/20"></span>
-                <span class="text-[10px] code-font opacity-50 uppercase hidden md:block">Server-ID: 1451622156130717728</span>
-            </div>
-            <div class="flex space-x-6 text-[11px] font-bold uppercase tracking-widest text-zinc-400">
-                <a href="#about" class="hover:text-green-500 transition-colors">Manifesto</a>
-                <a href="#staff" class="hover:text-green-500 transition-colors">Architects</a>
-                <button onclick="initiateTransfer()" class="text-green-500 border border-green-500/50 px-3 py-1 bg-green-500/10 hover:bg-green-500 hover:text-black transition-all">Join Gateway</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Header Image & Hero Section -->
-    <header class="relative pt-14 overflow-hidden">
-        <img src="https://cdn.discordapp.com/attachments/1444689213638578288/1451645809438494860/hackemaniabanner.jpg?ex=6946ee03&is=69459c83&hm=3b1c6e471f6dd7641485133f3b52f6b9cc89565678caddef380ac4276de9034b&" 
-             alt="HackerMania Banner" 
-             class="header-banner">
-             
-        <div class="max-w-4xl mx-auto px-6 pt-12 relative">
-            <h1 class="text-7xl md:text-9xl font-black mb-4 tracking-tighter text-white leading-none">
-                HACKER<span class="green-glow">MANIA</span>
+        <div class="brand-container">
+            <h1 class="brand-main">
+                <span class="text-hacker">HACKER</span><span class="text-mania">MANIA</span>
             </h1>
-            <div class="flex flex-wrap items-center gap-4 code-font text-sm mt-6">
-                <span class="text-green-500 border border-green-500/20 px-3 py-1 bg-green-500/5">v2.5.4-STABLE</span>
-                <span class="opacity-40">//</span>
-                <span class="text-zinc-400">Active Firewalls: <span class="text-white">42</span></span>
+            <div class="brand-sub mono opacity-60">DISTRIBUTED_GAUNTLET_PROTOCOL // V.4.0.0</div>
+            <div class="status-badge">
+                <div class="dot"></div>
+                <span>LAUNCHING SOON</span>
             </div>
         </div>
-    </header>
 
-    <main class="max-w-4xl mx-auto px-6 py-10 space-y-32">
-        <!-- Manifesto -->
-        <section id="about" class="relative">
-            <h2 class="section-title">Who We Are</h2>
-            <div class="grid md:grid-cols-5 gap-12 items-center">
-                <div class="md:col-span-3 space-y-6">
-                    <p class="text-2xl md:text-3xl font-light text-zinc-100 leading-tight">
-                        A decentralized collective of <span class="text-green-500 font-bold">Digital Architects</span> repurposing Discord’s architecture into a psychological gauntlet.
-                    </p>
-                    <p class="text-zinc-400">
-                        We don't teach. We don't mentor. We build walls. HackerMania is the final filter for the curious and the technically gifted.
-                    </p>
-                </div>
+        <div class="terminal-hero">
+            <div id="output" class="mono"></div>
+        </div>
+        
+        <div class="mt-12 animate-bounce">
+            <span class="mono text-[0.6rem] opacity-40 tracking-[0.5em]">Proceed for Full Disclosure</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header">
+            <p class="mono">ROOT/ABOUT_US</p>
+            <h2>THE COLLECTIVE</h2>
+        </div>
+        <div class="about-text">
+            Born from the shadows of the old web, <span class="highlight-text">HackerMania</span> is more than just a challenge; it is a digital proving ground. We believe that true security expertise cannot be taught in a classroom—it must be forged in the heat of a breach. Our team consists of former red-team operators, cryptographic researchers, and infrastructure architects who have seen the vulnerabilities that matter.
+        </div>
+        <div class="about-text">
+            Our mission is to create a <span class="highlight-text">meritocratic environment</span> where your hardware, your logic, and your persistence are the only currencies that matter. Whether you are a guest looking to learn or a veteran looking to dominate, the Gauntlet scales to meet your capability.
+        </div>
+    </section>
+
+    <!-- Project Scope Grid -->
+    <section class="grid-3" id="scope">
+        <div class="info-card">
+            <span class="card-label mono">MODULE_01</span>
+            <div class="card-title">40 FIREWALL LAYERS</div>
+            <p class="card-text">
+                A non-linear progression path. Each layer is a bespoke environment—from 8-bit logic puzzles to modern cloud-native exploitation.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <span class="card-label mono">MODULE_02</span>
+            <div class="card-title">HARDWARE AUTH</div>
+            <p class="card-text">
+                We track unique hardware fingerprints to ensure the integrity of the leaderboard and prevent automated sybil attacks.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <span class="card-label mono">MODULE_03</span>
+            <div class="card-title">LIVE ADAPTATION</div>
+            <p class="card-text">
+                Our algorithms detect common exploitation patterns and shift firewall logic in real-time to maintain the challenge level.
+            </p>
+        </div>
+    </section>
+
+    <!-- Disclaimers & Integrity Section -->
+    <section id="legal">
+        <div class="section-header">
+            <p class="mono">SYSTEM/LEGAL_NOTICE</p>
+            <h2>DISCLAIMERS</h2>
+        </div>
+        
+        <div class="about-text">
+            To ensure the safety and clarity of our participants, we provide the following protocol regarding system data and the nature of the platform.
+        </div>
+
+        <div class="disclaimer-box">
+            <div class="disclaimer-title mono">
+                <span>[!]</span> PRIVACY_PROTOCOL
             </div>
-        </section>
-
-        <!-- Hidden Data Section -->
-        <section class="py-16 bg-white/5 border-y border-white/5 relative overflow-hidden">
-            <h2 class="section-title px-6">Encrypted Transmission</h2>
-            <div class="px-6 max-w-2xl">
-                <div class="p-8 bg-black border border-green-500/20 relative">
-                    <p class="text-xs font-bold text-zinc-600 mb-4 uppercase tracking-tighter">System Message [REDACTED]</p>
-                    <p class="ghost-data code-font text-[11px] leading-relaxed select-all" id="ghost-data">
-                        AUTH_PROTOCOL_01: Highlight the void to uncover the truth. Submit code [HM-VOID-99] in #entry-point.
-                    </p>
-                    <div class="ghost-overlay" id="ghost-overlay">
-                        Grand Launch in <span id="launch-countdown">10</span>s
-                    </div>
-                </div>
+            <p class="card-text mb-6">
+                If you encounter your <span class="highlight-text">IP Address</span> or hardware identifiers displayed anywhere within this platform, please note: <span class="text-white">THIS DATA IS PROCESSED CLIENT-SIDE ONLY.</span> We do not log, store, or transmit your raw IP to our central databases for any purpose other than temporary session synchronization. Your privacy is paramount.
+            </p>
+            
+            <div class="disclaimer-title mono">
+                <span>[!]</span> SIMULATION_ADVISORY
             </div>
-        </section>
+            <p class="card-text">
+                HackerMania is a <span class="highlight-text">GAMIFIED SIMULATION</span>. While the techniques and logic puzzles mirror real-world scenarios, all "targets," "breaches," and "exploits" occur within a sandboxed, virtual environment. This is an educational and entertainment platform. No actual harm is performed against any third-party infrastructure.
+            </p>
+        </div>
+    </section>
 
-        <!-- Architects -->
-        <section id="staff">
-            <h2 class="section-title">The Architects</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div class="staff-card p-4 rounded">
-                    <p class="text-xs font-bold text-white">Architect</p>
-                    <p class="text-[9px] code-font text-zinc-500 uppercase">Lead Dev</p>
-                </div>
-                <div class="staff-card p-4 rounded">
-                    <p class="text-xs font-bold text-white">Null_Ptr</p>
-                    <p class="text-[9px] code-font text-zinc-500 uppercase">Logic Design</p>
-                </div>
-                <div class="staff-card p-4 rounded">
-                    <p class="text-xs font-bold text-white">Ghost_Log</p>
-                    <p class="text-[9px] code-font text-zinc-500 uppercase">Security</p>
-                </div>
-                <div class="staff-card p-4 rounded">
-                    <p class="text-xs font-bold text-white">Crypto_X</p>
-                    <p class="text-[9px] code-font text-zinc-500 uppercase">Cipher Core</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call to Action -->
-        <section id="uplink" class="pt-10">
-            <div class="p-px w-full bg-gradient-to-r from-transparent via-green-500/50 to-transparent">
-                <div class="bg-zinc-900/40 p-12 text-center space-y-8 backdrop-blur-xl">
-                    <div class="space-y-2">
-                        <h3 class="text-4xl font-black text-white uppercase tracking-tighter italic">Ready to Breach?</h3>
-                        <p class="text-zinc-500 text-[10px] code-font uppercase tracking-[0.3em]">Bypassing normal entry protocols...</p>
-                    </div>
-                    <button onclick="initiateTransfer()" class="group relative inline-flex items-center justify-center px-10 py-4 bg-discord-blurple text-white font-black uppercase tracking-widest text-xs transition-all hover:scale-105 active:scale-95">
-                        <span class="relative z-10">Initialize Uplink</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="py-16 border-t border-white/5 text-center bg-black/50">
-        <p class="text-[10px] code-font opacity-40 uppercase tracking-[0.5em]">HackerMania Infrastructure // 2025</p>
+    <footer>
+        <div class="mb-4">SYSTEM_ID: 1451622156130717728</div>
+        &copy; 2024 HACKERMANIA // ALL RIGHTS RESERVED // STABLE_UPLINK
     </footer>
 
     <script>
-        let countdownValue = 5;
-        let transferTimer = null;
-        let countdownInterval = null;
-        const targetUrl = "https://discord.gg/6ZCg4JATT9";
-        const webhookUrl = "https://discord.com/api/webhooks/1452304561619468329/5RSXQqsdUqIpcOLlMXqubNWM8AwTx6hQirB-XBkswLrst4p-H3PA6X5R8h_gACoOI21u";
-        const clickWebhookUrl = "https://discord.com/api/webhooks/1452306182625558629/d5GGbu7pwALng5cPnNj7kxvIB1YLNCFgOJhpNFaK1_ZybSf23MBjxOzrm-QD9wKTvyfD";
-        let isBanned = false;
-        let hardwareId = '';
-        let userIp = '';
-        let launchCountdownValue = 10;
-        let launchCountdownInterval;
+        const output = document.getElementById('output');
+        const countdownElement = document.getElementById('countdown');
+        
+        const targetDate = new Date();
+        targetDate.setMonth(targetDate.getMonth() + 1);
 
-        // Generate hardware fingerprint
-        async function generateFingerprint() {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            ctx.textBaseline = 'top';
-            ctx.font = '14px Arial';
-            ctx.fillText('HackerMania', 2, 2);
-            const fingerprint = canvas.toDataURL();
+        const messages = [
+            "UPLINK_ESTABLISHED",
+            "SYNCING_HARDWARE_ID",
+            "DECRYPTING_ASSETS",
+            "STABILIZING_QUBITS",
+            "MAPPING_VECTORS",
+            "INJECTING_LOGIC",
+            "PURGING_OLD_LOGS",
+            "READYING_FIREWALLS",
+            "ENCRYPTING_BUFFER",
+            "AUTHENTICATING_GHOSTS",
+            "RECOILING_SECURITY_POLICIES",
+            "SCANNING_FOR_INTRUSIONS"
+        ];
 
-            const navigatorData = [
-                navigator.userAgent,
-                navigator.language,
-                screen.width + 'x' + screen.height,
-                new Date().getTimezoneOffset(),
-                !!window.sessionStorage,
-                !!window.localStorage,
-                !!window.indexedDB,
-                fingerprint
-            ].join('|');
+        function generateLine() {
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2, '0') + ":" + 
+                            now.getMinutes().toString().padStart(2, '0') + ":" + 
+                            now.getSeconds().toString().padStart(2, '0') + "." + 
+                            now.getMilliseconds().toString().padStart(3, '0');
+            
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            const hex = Math.random().toString(16).substring(2, 8).toUpperCase();
 
-            hardwareId = btoa(navigatorData).slice(0, 32); // Simple hash-like ID
-            return hardwareId;
-        }
+            const line = document.createElement('div');
+            line.className = 'line';
+            line.innerHTML = `<span class="opacity-30 mr-3">[${timeStr}]</span><span class="text-white opacity-80">SYS:</span> ${msg} <span class="bg-green-500/10 px-1">0x${hex}</span>`;
+            
+            output.prepend(line);
 
-        // Get user IP
-        async function getUserIP() {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                userIp = data.ip;
-                return userIp;
-            } catch (error) {
-                console.error('Failed to get IP:', error);
-                userIp = 'unknown';
-                return 'unknown';
+            if (output.childNodes.length > 20) {
+                output.removeChild(output.lastChild);
             }
         }
 
-        // Check if user is banned
-        function checkBan() {
-            // System Dev exemption
-            if (hardwareId === 'TW96aWxsYS81LjAgKFdpbmRvd3MgTlQg' && userIp === '73.36.62.187') {
-                return; // System Dev cannot be banned
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = targetDate.getTime() - now;
+
+            if (diff <= 0) {
+                countdownElement.innerText = "00:00:00:00:000";
+                return;
             }
-            const bannedIds = JSON.parse(localStorage.getItem('bannedHardwareIds') || '[]');
-            const bannedIps = JSON.parse(localStorage.getItem('bannedIps') || '[]');
-            if (bannedIds.includes(hardwareId) || bannedIps.includes(userIp)) {
-                isBanned = true;
-                showBanMessage();
-            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            const ms = Math.floor(diff % 1000);
+
+            countdownElement.innerText = 
+                `${d.toString().padStart(2, '0')}:${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}:${ms.toString().padStart(3, '0')}`;
         }
 
-        // Show ban message
-        function showBanMessage() {
-            document.body.innerHTML = `
-                <div style="position: fixed; inset: 0; background: #000; color: #ff4d4d; display: flex; align-items: center; justify-content: center; font-family: 'Fira Code', monospace; z-index: 10001;">
-                    <div style="text-align: center; padding: 2rem; border: 1px solid #ff4d4d; background: #1a0000;">
-                        <h1 style="font-size: 2rem; margin-bottom: 1rem;">ACCESS DENIED</h1>
-                        <p style="font-size: 1.2rem;">You have been banned by System AntiCheat</p>
-                        <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 1rem;">Hardware ID: ${hardwareId}</p>
-                        <p style="font-size: 0.8rem; opacity: 0.7;">IP: ${userIp}</p>
-                    </div>
-                </div>
-            `;
+        setInterval(generateLine, 80); 
+        
+        function animate() {
+            updateCountdown();
+            requestAnimationFrame(animate);
         }
+        requestAnimationFrame(animate);
 
-        // Log to Discord webhook
-        async function logToDiscord(reason) {
-            const payload = {
-                embeds: [{
-                    title: "Dev Tools Detection Alert",
-                    description: `**Reason:** ${reason}\n**Hardware ID:** ${hardwareId}\n**IP Address:** ${userIp}\n**Timestamp:** ${new Date().toISOString()}`,
-                    color: 0xff0000,
-                    footer: {
-                        text: "HackerMania AntiCheat"
-                    }
-                }]
-            };
-
-            try {
-                await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-            } catch (error) {
-                console.error('Failed to log to Discord:', error);
-            }
-        }
-
-        // Ban user
-        function banUser(reason) {
-            if (isBanned) return;
-            isBanned = true;
-            const bannedIds = JSON.parse(localStorage.getItem('bannedHardwareIds') || '[]');
-            const bannedIps = JSON.parse(localStorage.getItem('bannedIps') || '[]');
-            if (!bannedIds.includes(hardwareId)) {
-                bannedIds.push(hardwareId);
-                localStorage.setItem('bannedHardwareIds', JSON.stringify(bannedIds));
-            }
-            if (!bannedIps.includes(userIp)) {
-                bannedIps.push(userIp);
-                localStorage.setItem('bannedIps', JSON.stringify(bannedIps));
-            }
-            logToDiscord(reason);
-            showBanMessage();
-        }
-
-        // Detect dev tools via window resize (common for three dots menu)
-        let devToolsOpen = false;
-        let lastHeight = window.innerHeight;
-
-        function checkDevTools() {
-            const currentHeight = window.innerHeight;
-            const heightDiff = lastHeight - currentHeight;
-            if (heightDiff > 100 && !devToolsOpen) { // Assuming dev tools open reduces height significantly
-                devToolsOpen = true;
-                banUser("Dev tools opened via browser settings (window resize detected)");
-            } else if (heightDiff < 50 && devToolsOpen) {
-                devToolsOpen = false;
-            }
-            lastHeight = currentHeight;
-        }
-
-        // Additional detection: Check for console open (less reliable)
-        let consoleCheckInterval;
-        function startConsoleCheck() {
-            let start = performance.now();
-            consoleCheckInterval = setInterval(() => {
-                let end = performance.now();
-                if (end - start > 200) { // If time difference is large, dev tools might be open
-                    banUser("Dev tools detected via timing check");
-                }
-                start = performance.now();
-            }, 100);
-        }
-
-        function showWarning(e) {
-            e.preventDefault();
-            document.getElementById('security-alert').style.display = 'block';
-            return false;
-        }
-
-        function closeWarning() {
-            document.getElementById('security-alert').style.display = 'none';
-        }
-
-        function initiateTransfer() {
-            if (isBanned) return;
-            const overlay = document.getElementById('transfer-overlay');
-            const countdownEl = document.getElementById('countdown');
-            const progressEl = document.getElementById('progress-bar');
-
-            overlay.style.display = 'flex';
-            countdownValue = 5;
-            countdownEl.innerText = `0${countdownValue}s`;
-            progressEl.style.width = '100%';
-
-            countdownInterval = setInterval(() => {
-                countdownValue--;
-                countdownEl.innerText = `0${countdownValue}s`;
-                progressEl.style.width = `${(countdownValue / 5) * 100}%`;
-
-                if (countdownValue <= 0) {
-                    clearInterval(countdownInterval);
-                    window.location.href = targetUrl;
-                }
-            }, 1000);
-        }
-
-        function cancelTransfer() {
-            const overlay = document.getElementById('transfer-overlay');
-            overlay.style.display = 'none';
-            clearInterval(countdownInterval);
-        }
-
-        // Initialize on load
-        window.addEventListener('load', async () => {
-            await generateFingerprint();
-            await getUserIP();
-            checkBan();
-            if (!isBanned) {
-                startConsoleCheck();
-                window.addEventListener('resize', checkDevTools);
-            }
-        });
-
-        // Standard protection
         document.addEventListener('keydown', function(e) {
             if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
-                e.preventDefault();
-                banUser("Dev tools opened via keyboard shortcut");
-                showWarning(e);
+                console.warn("TELEMETRY_LOG_TRIGGERED: UNAUTHORIZED_DEV_TOOLS_DETECTED");
             }
-        });
-
-        // Prevent context menu
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            showWarning(e);
         });
     </script>
 </body>
