@@ -69,9 +69,9 @@
         .top-timer-container {
             margin-bottom: 2rem;
             border-bottom: 1px solid rgba(0, 255, 65, 0.2);
-            padding-bottom: 1rem;
+            padding-bottom: 1.5rem;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
         }
 
         /* Dual Tone Header Effect */
@@ -247,6 +247,28 @@
             color: var(--hacker-green);
             font-weight: 700;
         }
+
+        /* Countdown specific styling */
+        .countdown-segment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .segment-label {
+            font-size: 0.6rem;
+            opacity: 0.4;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+        }
+
+        .segment-divider {
+            font-size: 2rem;
+            opacity: 0.2;
+            padding: 0 0.5rem;
+            align-self: flex-start;
+            margin-top: 0.5rem;
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -257,8 +279,34 @@
     <!-- Hero Area -->
     <section class="hero-section">
         <div class="top-timer-container mono">
-            <div class="text-[0.6rem] opacity-50 mb-2 tracking-[0.5em]">SYSTEM_INITIALIZATION_ETA</div>
-            <div id="countdown" class="text-4xl md:text-7xl font-bold tracking-tighter text-white">30:00:00:00:000</div>
+            <div class="text-[0.6rem] opacity-50 mb-4 tracking-[0.5em]">SYSTEM_INITIALIZATION_ETA</div>
+            
+            <div id="countdown-wrapper" class="flex justify-center items-center gap-1 md:gap-4 text-white">
+                <div class="countdown-segment">
+                    <span id="days" class="text-3xl md:text-6xl font-black">00</span>
+                    <span class="segment-label">DAYS</span>
+                </div>
+                <span class="segment-divider">:</span>
+                <div class="countdown-segment">
+                    <span id="hours" class="text-3xl md:text-6xl font-black">00</span>
+                    <span class="segment-label">HRS</span>
+                </div>
+                <span class="segment-divider">:</span>
+                <div class="countdown-segment">
+                    <span id="mins" class="text-3xl md:text-6xl font-black">00</span>
+                    <span class="segment-label">MINS</span>
+                </div>
+                <span class="segment-divider">:</span>
+                <div class="countdown-segment">
+                    <span id="secs" class="text-3xl md:text-6xl font-black">00</span>
+                    <span class="segment-label">SECS</span>
+                </div>
+                <span class="segment-divider">:</span>
+                <div class="countdown-segment">
+                    <span id="msecs" class="text-xl md:text-4xl font-bold opacity-70">000</span>
+                    <span class="segment-label">MS</span>
+                </div>
+            </div>
         </div>
 
         <div class="brand-container">
@@ -292,6 +340,20 @@
         </div>
         <div class="about-text">
             Our mission is to create a <span class="highlight-text">meritocratic environment</span> where your hardware, your logic, and your persistence are the only currencies that matter. Whether you are a guest looking to learn or a veteran looking to dominate, the Gauntlet scales to meet your capability.
+        </div>
+    </section>
+
+    <!-- Host Section -->
+    <section id="host">
+        <div class="section-header">
+            <p class="mono">ROOT/THE_ARCHITECT</p>
+            <h2>ABOUT THE HOST</h2>
+        </div>
+        <div class="about-text">
+            HackerMania is hosted and operated by <span class="highlight-text">RVO INC</span>. 
+        </div>
+        <div class="about-text">
+            As a pioneer in decentralized security simulations and algorithmic stress-testing, RVO INC provides the underlying infrastructure that powers the Gauntlet. Their commitment to technical excellence and zero-knowledge architecture ensures that every breach attempted on this platform remains an anonymous test of skill.
         </div>
     </section>
 
@@ -357,10 +419,20 @@
 
     <script>
         const output = document.getElementById('output');
-        const countdownElement = document.getElementById('countdown');
         
-        const targetDate = new Date();
-        targetDate.setMonth(targetDate.getMonth() + 1);
+        // Countdown Elements
+        const elDays = document.getElementById('days');
+        const elHours = document.getElementById('hours');
+        const elMins = document.getElementById('mins');
+        const elSecs = document.getElementById('secs');
+        const elMSecs = document.getElementById('msecs');
+        
+        /**
+         * STATIC TARGET DATE CONFIGURATION
+         * Set to one month from the start date (12/21/2025).
+         * Target: January 21, 2026 00:00:00
+         */
+        const targetDate = new Date('January 21, 2026 00:00:00').getTime();
 
         const messages = [
             "UPLINK_ESTABLISHED",
@@ -400,10 +472,15 @@
 
         function updateCountdown() {
             const now = new Date().getTime();
-            const diff = targetDate.getTime() - now;
+            const diff = targetDate - now;
 
             if (diff <= 0) {
-                countdownElement.innerText = "00:00:00:00:000";
+                elDays.innerText = "00";
+                elHours.innerText = "00";
+                elMins.innerText = "00";
+                elSecs.innerText = "00";
+                elMSecs.innerText = "000";
+                document.getElementById('countdown-wrapper').classList.add('text-green-500');
                 return;
             }
 
@@ -413,8 +490,11 @@
             const s = Math.floor((diff % (1000 * 60)) / 1000);
             const ms = Math.floor(diff % 1000);
 
-            countdownElement.innerText = 
-                `${d.toString().padStart(2, '0')}:${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}:${ms.toString().padStart(3, '0')}`;
+            elDays.innerText = d.toString().padStart(2, '0');
+            elHours.innerText = h.toString().padStart(2, '0');
+            elMins.innerText = m.toString().padStart(2, '0');
+            elSecs.innerText = s.toString().padStart(2, '0');
+            elMSecs.innerText = ms.toString().padStart(3, '0');
         }
 
         setInterval(generateLine, 80); 
